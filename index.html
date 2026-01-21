@@ -1,77 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roan Merluccio - Photography Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Editor controls - hidden by default -->
-  <div id="editor-controls" class="editor-controls">
-    <div class="editor-header">
-      <button id="toggle-editor" class="editor-toggle">EDIT</button>
-      <div class="editor-actions">
-        <button id="clear-gallery" class="editor-button">Clear All</button>
-        <button id="export-html" class="editor-button">Export HTML</button>
-        <button id="export-json" class="editor-button">Export JSON</button>
-      </div>
-    </div>
-    <div id="drop-zone" class="drop-zone">
-      <p>Drag & drop images here</p>
-      <p class="or-text">or</p>
-      <button id="browse-files" class="browse-button">Browse Files</button>
-      <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
-    </div>
-  </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roan Merluccio</title>
 
-  <header class="portfolio-header">
-    <div class="header-content">
-      <h1 class="photographer-name">Roan Merluccio</h1>
-      <span class="section-label">Image</span>
-    </div>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <h1>ROAN MERLUCCIO</h1>
+    <span class="section-label">Image</span>
   </header>
 
-  <main id="portfolio-grid" class="portfolio-grid">
-    <!-- Gallery items will be generated here -->
-    <div class="grid-item">
+  <!-- Gallery -->
+  <main class="gallery">
+
+    <div class="image-item">
       <img src="images/01.jpg" alt="Photography work 1" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Pacific Coast</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>California · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/02.jpg" alt="Photography work 2" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">P-51 Mustang</span>
+        <span>Sony A7R II · 70–200mm</span>
+        <span>California · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/03.jpg" alt="Photography work 3" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Boeing Stearman</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>California · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/04.jpg" alt="Photography work 4" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">F/A-18 Hornet</span>
+        <span>Sony A7R II · 70–200mm</span>
+        <span>California · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/05.jpg" alt="Photography work 5" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Desert Road</span>
+        <span>Sony A7R II · 35mm</span>
+        <span>California · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/06.jpg" alt="Photography work 6" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Paris Street</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>France · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/07.jpg" alt="Photography work 7" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Seine Embankment</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>Paris · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/08.jpg" alt="Photography work 8" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Rue de Paris</span>
+        <span>Sony A7R II · 35mm</span>
+        <span>Paris · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/09.jpg" alt="Photography work 9" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Citroën 2CV</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>Paris · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/10.jpg" alt="Photography work 10" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Sculpture Study</span>
+        <span>Sony A7R II · 50mm</span>
+        <span>Paris · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/11.jpg" alt="Photography work 11" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Monaco Grand Prix</span>
+        <span>Sony A7R II · 70–200mm</span>
+        <span>Monaco · 2024</span>
+      </div>
     </div>
-    <div class="grid-item">
+
+    <div class="image-item">
       <img src="images/12.jpg" alt="Photography work 12" loading="lazy">
+      <div class="meta">
+        <span class="meta-title">Monaco Grand Prix</span>
+        <span>Sony A7R II · 70–200mm</span>
+        <span>Monaco · 2024</span>
+      </div>
     </div>
+
   </main>
 
+  <!-- Editor Mode Script -->
   <script src="editor.js"></script>
+
 </body>
 </html>
