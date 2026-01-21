@@ -1,8 +1,34 @@
 /* ------------------------------
+   CONFIG
+------------------------------ */
+const IMAGE_COUNT = 12;
+const IMAGE_PATH = "images/";
+
+/* ------------------------------
    Editor Mode Toggle
 ------------------------------ */
 const params = new URLSearchParams(window.location.search);
 const isEditor = params.get("edit") === "true";
+
+/* ------------------------------
+   Build Gallery Automatically
+------------------------------ */
+const gallery = document.querySelector(".gallery");
+
+for (let i = 1; i <= IMAGE_COUNT; i++) {
+  const num = String(i).padStart(2, "0");
+
+  const item = document.createElement("div");
+  item.className = "image-item";
+
+  const img = document.createElement("img");
+  img.src = `${IMAGE_PATH}${num}.jpg`;
+  img.loading = "lazy";
+  img.alt = `Photography work ${i}`;
+
+  item.appendChild(img);
+  gallery.appendChild(item);
+}
 
 /* ------------------------------
    Editor Banner
@@ -40,8 +66,8 @@ document.querySelectorAll(".image-item img").forEach(img => {
 
     overlay.addEventListener("click", () => overlay.remove());
 
-    document.addEventListener("keydown", function esc(e) {
-      if (e.key === "Escape") {
+    document.addEventListener("keydown", function esc(ev) {
+      if (ev.key === "Escape") {
         overlay.remove();
         document.removeEventListener("keydown", esc);
       }
@@ -53,7 +79,6 @@ document.querySelectorAll(".image-item img").forEach(img => {
    Drag & Drop (EDITOR MODE ONLY)
 ------------------------------ */
 if (isEditor) {
-  const gallery = document.querySelector(".gallery");
   let dragged = null;
 
   gallery.querySelectorAll(".image-item").forEach(item => {
