@@ -1,4 +1,3 @@
-// Editor Mode Toggle
 document.addEventListener('DOMContentLoaded', function() {
   const editorControls = document.getElementById('editor-controls');
   const toggleEditor = document.getElementById('toggle-editor');
@@ -9,9 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const clearGallery = document.getElementById('clear-gallery');
   const exportHtml = document.getElementById('export-html');
   const exportJson = document.getElementById('export-json');
+  const header = document.querySelector('.portfolio-header');
 
   let isEditorMode = false;
   let draggedItem = null;
+  let lastScrollPosition = 0;
 
   // Check for editor mode in URL (for local editing)
   const urlParams = new URLSearchParams(window.location.search);
@@ -26,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleEditor.textContent = isEditorMode ? 'VIEW' : 'EDIT';
 
     if (isEditorMode) {
-      // Enable drag and drop reordering
       setupDragAndDrop();
       document.body.classList.add('editor-mode');
     } else {
@@ -36,13 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Setup drag and drop for file uploads
   function setupFileDrop() {
-    // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
       dropZone.addEventListener(eventName, preventDefaults, false);
       document.body.addEventListener(eventName, preventDefaults, false);
     });
 
-    // Highlight drop area when item is dragged over it
     ['dragenter', 'dragover'].forEach(eventName => {
       dropZone.addEventListener(eventName, highlight, false);
     });
@@ -51,10 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
       dropZone.addEventListener(eventName, unhighlight, false);
     });
 
-    // Handle dropped files
     dropZone.addEventListener('drop', handleDrop, false);
-
-    // Handle file input
     fileInput.addEventListener('change', handleFiles);
     browseFiles.addEventListener('click', () => fileInput.click());
   }
@@ -101,13 +96,18 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="image-info">${file.name} (${formatFileSize(file.size)})</div>
       `;
 
-      // Add drag events for reordering
       imgElement.addEventListener('dragstart', handleDragStart);
       imgElement.addEventListener('dragover', handleDragOver);
       imgElement.addEventListener('drop', handleDropReorder);
       imgElement.addEventListener('dragend', handleDragEnd);
 
       portfolioGrid.appendChild(imgElement);
+
+      // Add loaded class when image is loaded
+      const img = imgElement.querySelector('img');
+      img.addEventListener('load', function() {
+        this.classList.add('loaded');
+      });
     };
 
     reader.readAsDataURL(file);
@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     else return (bytes / 1048576).toFixed(2) + ' MB';
   }
 
-  // Drag and drop reordering functions
   function setupDragAndDrop() {
     const items = document.querySelectorAll('.grid-item');
     items.forEach(item => {
@@ -152,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (draggedItem !== this) {
-      // Don't do anything if dropping on the same item
       const gridItems = Array.from(portfolioGrid.children);
       const currentPos = gridItems.indexOf(this);
       const draggedPos = gridItems.indexOf(draggedItem);
@@ -187,7 +185,10 @@ document.addEventListener('DOMContentLoaded', function() {
     items.forEach((item, index) => {
       const img = item.querySelector('img');
       if (img) {
-        htmlOutput += `<div class="grid-item">\n  <img src="${img.src}" alt="${img.alt || 'Photography work ' + (index + 1)}" loading="lazy">\n</div>\n`;
+        htmlOutput += `<div class="grid-item">
+  <img src="${img.src}" alt="${img.alt || 'Photography work ' + (index + 1)}" loading="lazy">
+</div>
+`;
       }
     });
 
@@ -225,6 +226,30 @@ document.addEventListener('DOMContentLoaded', function() {
       URL.revokeObjectURL(url);
     }, 100);
   }
+
+  // Add loaded class to existing images
+  document.querySelectorAll('.grid-item img').forEach(img => {
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', function() {
+        this.classList.add('loaded');
+      });
+    }
+  });
+
+  // Header hide/show on scroll
+  window.addEventListener('scroll', function() {
+    const currentScrollPosition = window.pageYOffset;
+
+    if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 100) {
+      header.classList.add('hide');
+    } else {
+      header.classList.remove('hide');
+    }
+
+    lastScrollPosition = currentScrollPosition;
+  });
 
   // Initialize
   toggleEditor.addEventListener('click', toggleEditorMode);
