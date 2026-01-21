@@ -2,15 +2,17 @@
 :root {
   --dark-bg: #121212;
   --light-text: #f5f5f5;
-  --grid-gap: 3rem;
-  --header-height: 100px;
-  --header-padding: 0 3rem;
-  --grid-padding: 3rem;
+  --grid-gap: 2rem;
+  --header-height: 80px;
+  --header-padding: 0 2rem;
+  --grid-padding: 1rem;
   --image-aspect-ratio: 3/4;
-  --text-opacity: 0.8;
+  --text-opacity: 0.7;
   --editor-bg: #1e1e1e;
   --editor-border: #333;
   --editor-text: #ccc;
+  --transition-speed: 0.4s;
+  --hover-scale: 1.02;
 }
 
 * {
@@ -28,6 +30,7 @@ html, body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 /* Editor Controls - Hidden by default */
@@ -58,6 +61,7 @@ html, body {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 400;
 }
 
 .editor-toggle:hover {
@@ -77,6 +81,7 @@ html, body {
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 400;
 }
 
 .editor-button:hover {
@@ -118,6 +123,7 @@ html, body {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 400;
 }
 
 .browse-button:hover {
@@ -138,6 +144,7 @@ html, body {
   background-color: var(--dark-bg);
   padding: var(--header-padding);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
 .header-content {
@@ -149,17 +156,18 @@ html, body {
 }
 
 .photographer-name {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 300;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: var(--text-opacity);
+  transition: opacity 0.3s ease;
 }
 
 .section-label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 300;
-  opacity: 0.6;
+  opacity: 0.5;
   margin-left: 1rem;
 }
 
@@ -168,7 +176,7 @@ html, body {
   margin-top: var(--header-height);
   padding: var(--grid-padding);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--grid-gap);
   max-width: 1400px;
   margin-left: auto;
@@ -179,18 +187,22 @@ html, body {
   position: relative;
   overflow: hidden;
   aspect-ratio: var(--image-aspect-ratio);
-  transition: opacity 0.4s ease;
+  transition: opacity var(--transition-speed) ease;
+  will-change: transform;
 }
 
 .grid-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  filter: brightness(0.95);
 }
 
 .grid-item:hover img {
-  transform: scale(1.03);
+  transform: scale(var(--hover-scale));
+  filter: brightness(1);
 }
 
 /* Editor mode specific styles */
@@ -223,34 +235,48 @@ body.editor-mode .image-info {
 /* Responsive Adjustments - More sophisticated breakpoints */
 @media (min-width: 640px) {
   .portfolio-grid {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 3.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    padding: 1.5rem;
+  }
+
+  .photographer-name {
+    font-size: 1.4rem;
+  }
+
+  .grid-item {
+    aspect-ratio: 4/5;
   }
 }
 
 @media (min-width: 960px) {
   .portfolio-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
-    padding: var(--grid-padding) 0;
+    gap: 3rem;
+    padding: 2rem 0;
   }
 
   .header-content {
-    padding: 0 4rem;
+    padding: 0 3rem;
   }
 
   .photographer-name {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
 @media (min-width: 1200px) {
   .portfolio-grid {
-    gap: 5rem;
+    gap: 4rem;
+    padding: 3rem 0;
   }
 
   .grid-item {
-    aspect-ratio: 4/5;
+    aspect-ratio: 3/4;
+  }
+
+  .photographer-name {
+    font-size: 1.8rem;
   }
 }
 
@@ -276,6 +302,7 @@ body.editor-mode .image-info {
 
   .grid-item img {
     transform: none !important;
+    filter: none !important;
   }
 }
 
@@ -283,4 +310,42 @@ body.editor-mode .image-info {
 .grid-item:focus-within {
   outline: 2px solid rgba(255, 255, 255, 0.2);
   outline-offset: 4px;
+}
+
+/* Prevent layout shift for images */
+img {
+  display: block;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Header disappears on scroll down, reappears on scroll up */
+header {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+header.hide {
+  transform: translateY(-100%);
+}
+
+/* Add subtle loading animation for images */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.grid-item img {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+/* Ensure images are loaded before animation */
+.grid-item img.loaded {
+  opacity: 1;
 }
