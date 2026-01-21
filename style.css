@@ -1,0 +1,286 @@
+/* Base Reset and Variables */
+:root {
+  --dark-bg: #121212;
+  --light-text: #f5f5f5;
+  --grid-gap: 3rem;
+  --header-height: 100px;
+  --header-padding: 0 3rem;
+  --grid-padding: 3rem;
+  --image-aspect-ratio: 3/4;
+  --text-opacity: 0.8;
+  --editor-bg: #1e1e1e;
+  --editor-border: #333;
+  --editor-text: #ccc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editor Controls - Hidden by default */
+.editor-controls {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background-color: var(--editor-bg);
+  border-bottom: 1px solid var(--editor-border);
+  padding: 1rem;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.editor-toggle {
+  background: var(--dark-bg);
+  color: var(--light-text);
+  border: 1px solid var(--editor-border);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-toggle:hover {
+  background: var(--editor-border);
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editor-button {
+  background: var(--dark-bg);
+  color: var(--editor-text);
+  border: 1px solid var(--editor-border);
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-button:hover {
+  background: var(--editor-border);
+}
+
+/* Drop Zone Styles */
+.drop-zone {
+  border: 2px dashed var(--editor-border);
+  border-radius: 4px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--editor-text);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.drop-zone.highlight {
+  border-color: var(--light-text);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.drop-zone p {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.or-text {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin: 0.5rem 0;
+}
+
+.browse-button {
+  background: var(--dark-bg);
+  color: var(--light-text);
+  border: 1px solid var(--editor-border);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.browse-button:hover {
+  background: var(--editor-border);
+}
+
+/* Header Styles - More editorial spacing */
+.portfolio-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background-color: var(--dark-bg);
+  padding: var(--header-padding);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-content {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.photographer-name {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: var(--text-opacity);
+}
+
+.section-label {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.6;
+  margin-left: 1rem;
+}
+
+/* Main Grid Layout - Fashion magazine breathing space */
+.portfolio-grid {
+  margin-top: var(--header-height);
+  padding: var(--grid-padding);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--grid-gap);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--image-aspect-ratio);
+  transition: opacity 0.4s ease;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.grid-item:hover img {
+  transform: scale(1.03);
+}
+
+/* Editor mode specific styles */
+body.editor-mode .grid-item {
+  cursor: move;
+}
+
+.grid-item.dragging {
+  opacity: 0.5;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.image-info {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+body.editor-mode .image-info {
+  display: block;
+}
+
+/* Responsive Adjustments - More sophisticated breakpoints */
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3.5rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    padding: var(--grid-padding) 0;
+  }
+
+  .header-content {
+    padding: 0 4rem;
+  }
+
+  .photographer-name {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .portfolio-grid {
+    gap: 5rem;
+  }
+
+  .grid-item {
+    aspect-ratio: 4/5;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .editor-controls {
+    display: none !important;
+  }
+
+  .portfolio-header {
+    position: static;
+    height: auto;
+    padding: 2rem;
+    border-bottom: none;
+  }
+
+  .portfolio-grid {
+    margin-top: 0;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .grid-item img {
+    transform: none !important;
+  }
+}
+
+/* Focus states for accessibility */
+.grid-item:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.2);
+  outline-offset: 4px;
+}
