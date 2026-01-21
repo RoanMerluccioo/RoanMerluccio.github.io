@@ -65,3 +65,37 @@ gallery.querySelectorAll(".image-item").forEach(item => {
     }
   });
 });
+
+/* ------------------------------
+   Fullscreen Image Viewer
+------------------------------ */
+document.querySelectorAll(".image-item img").forEach(img => {
+  img.addEventListener("click", e => {
+    // Prevent editor drag interference
+    e.stopPropagation();
+
+    const overlay = document.createElement("div");
+    overlay.className = "fullscreen-overlay";
+
+    const fullscreenImg = document.createElement("img");
+    fullscreenImg.src = img.src;
+    fullscreenImg.alt = img.alt;
+
+    overlay.appendChild(fullscreenImg);
+    document.body.appendChild(overlay);
+
+    // Close on click
+    overlay.addEventListener("click", () => {
+      overlay.remove();
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", function escHandler(ev) {
+      if (ev.key === "Escape") {
+        overlay.remove();
+        document.removeEventListener("keydown", escHandler);
+      }
+    });
+  });
+});
+
