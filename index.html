@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roan Merluccio - Photography Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Editor controls - hidden by default -->
+  <div id="editor-controls" class="editor-controls">
+    <div class="editor-header">
+      <button id="toggle-editor" class="editor-toggle">EDIT</button>
+      <div class="editor-actions">
+        <button id="clear-gallery" class="editor-button">Clear All</button>
+        <button id="export-html" class="editor-button">Export HTML</button>
+        <button id="export-json" class="editor-button">Export JSON</button>
+      </div>
+    </div>
+    <div id="drop-zone" class="drop-zone">
+      <p>Drag & drop images here</p>
+      <p class="or-text">or</p>
+      <button id="browse-files" class="browse-button">Browse Files</button>
+      <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+    </div>
+  </div>
+
+  <header class="portfolio-header">
+    <div class="header-content">
+      <h1 class="photographer-name">Roan Merluccio</h1>
+      <span class="section-label">Image</span>
+    </div>
+  </header>
+
+  <main id="portfolio-grid" class="portfolio-grid">
+    <!-- Gallery items will be generated here -->
+    <div class="grid-item">
+      <img src="images/01.jpg" alt="Photography work 1" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/02.jpg" alt="Photography work 2" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/03.jpg" alt="Photography work 3" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/04.jpg" alt="Photography work 4" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/05.jpg" alt="Photography work 5" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/06.jpg" alt="Photography work 6" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/07.jpg" alt="Photography work 7" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/08.jpg" alt="Photography work 8" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/09.jpg" alt="Photography work 9" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/10.jpg" alt="Photography work 10" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/11.jpg" alt="Photography work 11" loading="lazy">
+    </div>
+    <div class="grid-item">
+      <img src="images/12.jpg" alt="Photography work 12" loading="lazy">
+    </div>
+  </main>
+
+  <script src="editor.js"></script>
+</body>
+</html>
